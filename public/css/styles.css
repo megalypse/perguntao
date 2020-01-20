@@ -1,0 +1,13 @@
+body{
+    background-color: rgb(226, 239, 243);
+}
+
+img{
+    width: 100px;
+}
+.question-div{
+    width: 80%;
+}
+.hidden{
+    display: none;
+}

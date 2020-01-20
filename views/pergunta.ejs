@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Perguntão</title>
+    <link rel="stylesheet" href="/bootstrap4/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body>
+    <%- include("partials/navbar") %>
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-12">
+                <a href="/" class="btn btn-primary m-3">Voltar</a>
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h1><%= titulo %></h1>
+                    </div>
+                    <div class="card-body">
+                        <p><%= descricao %></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <form action="/perguntas/<%= id %>/sendAns" method="post">
+                    <textarea name="parentAnswer" cols="30" rows="8" class="form-control" style="resize: none;"
+                        required></textarea>
+                    <input type="number" name="parentID" value="<%= id %>" class="hidden">
+                    <button type="submit" class="btn btn-primary mt-2">Enviar resposta</button>
+                </form>
+            </div>
+            <div class="col-12 d-flex justify-content-center">
+                <h1>Respostas</h1>
+            </div>
+            <hr>
+            <div class="col-12 mt-2">
+                <% if(maxAns === 0){%>
+                <div class="col-12 d-flex justify-content-center">
+                    <p>Ninguém respondeu essa pergunta ainda. Seja o primeiro!</p>
+                </div>
+                <%}else{%> 
+                    <% respostas.forEach(resposta => { %>
+                        <form action="/perguntas/<%= id %>/delAns" method="post">
+                            <div class="card m-2">
+                                <div class="card-body">
+                                    <p><%= resposta.resposta %></p>
+                                </div>
+                            </div>
+                            <input type="number" name="delAns" value="<%= resposta.id %>" class="hidden">
+                            <input type="number" name="parentID1" value="<%= id %>" class="hidden">
+                            <button type="submit" class="btn btn-primary">Deletar resposta</button>
+                        </form>
+                        <%})%>
+                <%}%>
+            </div>
+        </div>
+    </div>
+    <%- include("partials/scripts") %>
+</body>
+
+</html>
